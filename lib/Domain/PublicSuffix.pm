@@ -338,6 +338,10 @@ sub rootDomain {
 
 =over 4
 
+=item * GitHub
+
+L<http://www.github.com/nmelnick/Domain-PublicSuffix>
+
 =item * Current List: 
 
 L<http://tinyurl.com/4tgwb9> [mxr.mozilla.org]

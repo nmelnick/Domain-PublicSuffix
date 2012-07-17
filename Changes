@@ -1,0 +1,31 @@
+Revision history for Domain-PublicSuffix
+
+0.05    2012-07-17 00:00 GMT
+        - Ridiculously long wait, but at least we have Dist::Zilla and GitHub.
+        - Updated default public suffix file
+        - Included patches from GAVINC:
+          - File::Spec fixes
+          - Test file for problematic domains
+          - non-TLD roots (like .co.im) are not getting flagged as RootEnable
+            when they should be
+          - Optionally allow underscores in domain
+
+0.04    2008-10-09 11:30 GMT
+        - Normalized code style
+        - Updated default public suffix file to latest from Mozilla
+        - Bug fixes, thanks to Jason Wieland --
+          - Documentation fixed to show that new requires a hashref
+          - Path searching for the tld data file now searches from root
+          - Improper code flow after finding a file causes module to
+            break when a data file is defined.
+
+0.03    2008-07-12 19:30 GMT
+        Repackaging with MakeMaker, added basic test suite, updated Mozilla
+        effective_tld data file.
+
+0.02    2008-04-03 22:00 GMT
+        Documentation and namespace fixes, so viewing in CPAN isn't a nightmare.
+
+0.01    2008-03-31 20:00
+        First release, likely prone to bugs I haven't even thought of.
+

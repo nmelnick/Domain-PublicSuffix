@@ -3,12 +3,20 @@ Domain-PublicSuffix
 
 INSTALLATION
 
-To install this module type the following:
+To install this module from Git, you will need Dist::Zilla. Once installed, run:
+   dzil authordeps | cpanm
+   dzil install
+
+To install this module from an archive, type the following:
 
    perl Makefile.PL
    make
    make test
    make install
+
+   OR
+
+   cpanm .
 
 DEPENDENCIES
 

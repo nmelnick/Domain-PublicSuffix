@@ -80,7 +80,7 @@ Returns the true DNS tld of the last parsed domain. For the domain
 
 =over 4
 
-=item new ({ optional arguments })
+=item new(\%arguments)
 
 Instantiate a PublicSuffix object. It is best to instantiate an object
 and continue calling get_root_domain instead of continually recreating the
@@ -122,7 +122,7 @@ sub new {
 
 =over 4
 
-=item get_root_domain ( $domain )
+=item get_root_domain( $domain )
 
 Given a fully qualified domain name, return the parsed root domain name.
 Returns undefined if an error occurs parsing the given domain, and fills
@@ -344,7 +344,7 @@ L<http://www.github.com/nmelnick/Domain-PublicSuffix>
 
 =item * Current List: 
 
-L<http://tinyurl.com/4tgwb9> [mxr.mozilla.org]
+L<http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/effective_tld_names.dat?raw=1> [mxr.mozilla.org]
 
 =item * Mozilla Documentation: 
 
@@ -396,9 +396,9 @@ L<http://search.cpan.org/dist/Domain-PublicSuffix>
 
 =head1 CONTRIBUTORS
 
-gavinc: Gavin Carr <gavinc@cpan.org>
+gavinc: Gavin Carr
 
-jwieland: Jason Wieland <jwieland@cpan.org>
+jwieland: Jason Wieland
 
 
 =head1 COPYRIGHT & LICENSE

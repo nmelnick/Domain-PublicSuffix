@@ -1,9 +1,17 @@
 Revision history for Domain-PublicSuffix
 
+0.06    2012-08-05 18:00 GMT
+        - Minor documentation changes in Domain::PublicSuffix and
+          get_root_domain
+        - Switched to new upstream PublicSuffix list
+        - Included patches from Daniel Kahn Gillmor (DKG):
+          - Additional path to support Debian publicsuffix package
+          - Non-zero exit from get_root_domain
+
 0.05    2012-07-17 00:00 GMT
         - Ridiculously long wait, but at least we have Dist::Zilla and GitHub.
         - Updated default public suffix file
-        - Included patches from GAVINC:
+        - Included patches from Gavin Carr (GAVINC):
           - File::Spec fixes
           - Test file for problematic domains
           - non-TLD roots (like .co.im) are not getting flagged as RootEnable

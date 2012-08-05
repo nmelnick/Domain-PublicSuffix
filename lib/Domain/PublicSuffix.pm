@@ -397,7 +397,7 @@ L<http://search.cpan.org/dist/Domain-PublicSuffix>
 
 =head1 CONTRIBUTORS
 
-dgk: Daniel Kahn Gillmor
+dkg: Daniel Kahn Gillmor
 
 gavinc: Gavin Carr
 

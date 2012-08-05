@@ -1,5 +1,8 @@
 Revision history for Domain-PublicSuffix
 
+0.07    2012-08-05 21:25 GMT
+        - Typo fix.
+
 0.06    2012-08-05 18:00 GMT
         - Minor documentation changes in Domain::PublicSuffix and
           get_root_domain

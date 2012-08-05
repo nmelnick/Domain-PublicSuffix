@@ -42,11 +42,11 @@ The Mozilla PublicSuffix file is an open source, fully documented format that
 shows absolute root TLDs, primarily for Mozilla's browser products to be able
 to determine how far a cookie's security boundaries go.
 
-This module will attempt to search etc directories in /usr, /usr/local, and
-/opt/local for the effective_tld_names.dat file. If a file is not found, a
-default file is loaded from Domain::PublicSuffix::Default, which is current at
-the time of the module's release. You can override the data file path by
-giving the new() method a 'data_file' argument.
+This module will attempt to search etc directories in /usr/share/publicsuffix,
+/usr, /usr/local, and /opt/local for the effective_tld_names.dat file. If a file
+is not found, a default file is loaded from Domain::PublicSuffix::Default, which
+is current at the time of the module's release. You can override the data file
+path by giving the new() method a 'data_file' argument.
 
 When creating a new PublicSuffix object, the module will load the data file as
 specified, and use the internal structure to parse each domain sent to the
@@ -234,6 +234,7 @@ sub _parse_data_file {
 		
 	} else {
 		my @paths = (
+			File::Spec->catdir(File::Spec->rootdir, qw/ usr share publicsuffix /),
 			File::Spec->catdir(File::Spec->rootdir, qw/ etc /),
 			File::Spec->catdir(File::Spec->rootdir, qw/ usr etc /),
 			File::Spec->catdir(File::Spec->rootdir, qw/ usr local etc /),
@@ -395,6 +396,8 @@ L<http://search.cpan.org/dist/Domain-PublicSuffix>
 
 
 =head1 CONTRIBUTORS
+
+dgk: Daniel Kahn Gillmor
 
 gavinc: Gavin Carr
 

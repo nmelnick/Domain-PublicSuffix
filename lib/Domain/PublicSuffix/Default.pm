@@ -31,7 +31,7 @@ Returns current list as a scalar.
 =cut
 
 sub retrieve {
-    my @lines = split(/\n/, q{// // This Source Code Form is subject to the terms of the Mozilla Public
+    my @lines = split(/\n/, q{// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
@@ -252,7 +252,6 @@ net.au
 org.au
 edu.au
 gov.au
-csiro.au
 asn.au
 id.au
 // Historic 2LDs (closed to new registration, but sites still exist)
@@ -448,13 +447,13 @@ b.br
 bio.br
 blog.br
 bmd.br
-can.br
 cim.br
 cng.br
 cnt.br
 com.br
 coop.br
 ecn.br
+eco.br
 edu.br
 emp.br
 eng.br
@@ -475,6 +474,7 @@ ind.br
 inf.br
 jor.br
 jus.br
+leg.br
 lel.br
 mat.br
 med.br
@@ -982,9 +982,15 @@ gov.gr
 // gs : http://en.wikipedia.org/wiki/.gs
 gs
 
-// gt : http://www.gt/politicas.html
-*.gt
-!www.gt
+// gt : http://www.gt/politicas_de_registro.html
+gt
+com.gt
+edu.gt
+gob.gt
+ind.gt
+mil.gt
+net.gt
+org.gt
 
 // gu : http://gadao.gov.gu/registration.txt
 *.gu
@@ -4198,6 +4204,7 @@ name.my
 
 // mz : http://www.gobin.info/domainname/mz-template.doc
 *.mz
+!teledata.mz
 
 // na : http://www.na-nic.com.na/
 // http://www.info.na/domain/
@@ -5391,8 +5398,16 @@ ed.pw
 go.pw
 belau.pw
 
-// py : http://www.nic.py/faq_a.html#faq_b
-*.py
+// py : http://www.nic.py/pautas.html#seccion_9
+// Confirmed by registry 2012-10-03
+py
+com.py
+coop.py
+edu.py
+gov.py
+mil.py
+net.py
+org.py
 
 // qa : http://domains.qa/en/
 qa
@@ -5921,71 +5936,102 @@ club.tw
 組織.tw
 商業.tw
 
-// tz : http://en.wikipedia.org/wiki/.tz
-// Submitted by registry <randy@psg.com> 2008-06-17
-// Updated from http://www.tznic.or.tz/index.php/domains.html 2010-10-25
+// tz : http://www.tznic.or.tz/index.php/domains
+// Confirmed by registry <manager@tznic.or.tz> 2013-01-22
 ac.tz
 co.tz
 go.tz
+hotel.tz
+info.tz
+me.tz
 mil.tz
+mobi.tz
 ne.tz
 or.tz
 sc.tz
+tv.tz
 
-// ua : http://www.nic.net.ua/
+// ua : https://hostmaster.ua/policy/?ua
+// Submitted by registry <dk@cctld.ua> 2012-04-27
 ua
+// ua 2LD
 com.ua
 edu.ua
 gov.ua
 in.ua
 net.ua
 org.ua
-// ua geo-names
+// ua geographic names
+// https://hostmaster.ua/2ld/
 cherkassy.ua
+cherkasy.ua
 chernigov.ua
+chernihiv.ua
+chernivtsi.ua
 chernovtsy.ua
 ck.ua
 cn.ua
+cr.ua
 crimea.ua
 cv.ua
 dn.ua
 dnepropetrovsk.ua
+dnipropetrovsk.ua
+dominic.ua
 donetsk.ua
 dp.ua
 if.ua
 ivano-frankivsk.ua
 kh.ua
+kharkiv.ua
 kharkov.ua
 kherson.ua
 khmelnitskiy.ua
+khmelnytskyi.ua
 kiev.ua
 kirovograd.ua
 km.ua
 kr.ua
+krym.ua
 ks.ua
 kv.ua
+kyiv.ua
 lg.ua
+lt.ua
 lugansk.ua
 lutsk.ua
+lv.ua
 lviv.ua
 mk.ua
+mykolaiv.ua
 nikolaev.ua
 od.ua
+odesa.ua
 odessa.ua
 pl.ua
 poltava.ua
+rivne.ua
 rovno.ua
 rv.ua
+sb.ua
 sebastopol.ua
+sevastopol.ua
+sm.ua
 sumy.ua
 te.ua
 ternopil.ua
+uz.ua
 uzhgorod.ua
 vinnica.ua
+vinnytsia.ua
 vn.ua
+volyn.ua
+yalta.ua
 zaporizhzhe.ua
-zp.ua
+zaporizhzhia.ua
 zhitomir.ua
+zhytomyr.ua
+zp.ua
 zt.ua
 
 // Private registries in .ua
@@ -6004,20 +6050,19 @@ com.ug
 org.ug
 
 // uk : http://en.wikipedia.org/wiki/.uk
+// Submitted by registry <noc@nominet.org.uk> 2012-10-02
+// and tweaked by us pending further consultation.
 *.uk
 *.sch.uk
 !bl.uk
 !british-library.uk
-!icnet.uk
 !jet.uk
 !mod.uk
+!national-library-scotland.uk
 !nel.uk
-!nhs.uk
 !nic.uk
 !nls.uk
-!national-library-scotland.uk
 !parliament.uk
-!police.uk
 
 // us : http://en.wikipedia.org/wiki/.us
 us
@@ -6264,8 +6309,14 @@ pvt.k12.ma.us
 chtr.k12.ma.us
 paroch.k12.ma.us
 
-// uy : http://www.antel.com.uy/
-*.uy
+// uy : http://www.nic.org.uy/
+uy
+com.uy
+edu.uy
+gub.uy
+mil.uy
+net.uy
+org.uy
 
 // uz : http://www.reg.uz/
 uz
@@ -6287,8 +6338,19 @@ gov.vc
 mil.vc
 edu.vc
 
-// ve : http://registro.nic.ve/nicve/registro/index.html
-*.ve
+// ve : https://registro.nic.ve/
+// Confirmed by registry 2012-10-04
+ve
+co.ve
+com.ve
+e12.ve
+edu.ve
+gov.ve
+info.ve
+mil.ve
+net.ve
+org.ve
+web.ve
 
 // vg : http://en.wikipedia.org/wiki/.vg
 vg
@@ -6528,15 +6590,20 @@ priv.at
 co.ca
 
 // CentralNic : http://www.centralnic.com/names/domains
-// Confirmed by registry <gavin.brown@centralnic.com> 2008-06-09
+// Confirmed by registry <gavin.brown@centralnic.com> 2012-09-27
+ae.org
 ar.com
 br.com
 cn.com
+com.de
 de.com
 eu.com
 gb.com
+gb.net
 gr.com
 hu.com
+hu.net
+jp.net
 jpn.com
 kr.com
 no.com
@@ -6544,25 +6611,68 @@ qc.com
 ru.com
 sa.com
 se.com
+se.net
 uk.com
+uk.net
 us.com
+us.org
 uy.com
 za.com
-gb.net
-jp.net
-se.net
-uk.net
-ae.org
-us.org
-com.de
 
 // Opera Software, A.S.A.
 // Requested by Yngve Pettersen <yngve@opera.com> 2009-11-26
 operaunite.com
 
 // Google, Inc.
-// Requested by Eduardo Vela <evn@google.com> 2010-09-06
+// Requested by Eduardo Vela <evn@google.com> 2012-10-24
 appspot.com
+blogspot.be
+blogspot.bj
+blogspot.ca
+blogspot.cf
+blogspot.ch
+blogspot.co.at
+blogspot.co.il
+blogspot.co.nz
+blogspot.co.uk
+blogspot.com
+blogspot.com.ar
+blogspot.com.au
+blogspot.com.br
+blogspot.com.es
+blogspot.cv
+blogspot.cz
+blogspot.de
+blogspot.dk
+blogspot.fi
+blogspot.fr
+blogspot.gr
+blogspot.hk
+blogspot.hu
+blogspot.ie
+blogspot.in
+blogspot.it
+blogspot.jp
+blogspot.kr
+blogspot.mr
+blogspot.mx
+blogspot.nl
+blogspot.no
+blogspot.pt
+blogspot.re
+blogspot.ro
+blogspot.se
+blogspot.sg
+blogspot.sk
+blogspot.td
+blogspot.tw
+codespot.com
+googleapis.com
+googlecode.com
+
+// DreamHost : http://www.dreamhost.com/
+// Requested by Andrew Farmer <andrew.farmer@dreamhost.com> 2012-10-02
+dreamhosters.com
 
 // iki.fi : Submitted by Hannu Aronsson <haa@iki.fi> 2009-11-05
 iki.fi
@@ -6863,6 +6973,14 @@ webhop.net
 webhop.org
 worse-than.tv
 writesthisblog.com
+
+// BetaInABox
+// Requested by adrian@betainabox.com 2012-09-13
+betainabox.com
+
+// Red Hat, Inc. OpenShift : https://openshift.redhat.com/
+// Requested by Tim Kramer <tkramer@rhcloud.com> 2012-10-24
+rhcloud.com
 
 // ===END PRIVATE DOMAINS===});
     return \@lines;

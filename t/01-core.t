@@ -15,6 +15,9 @@ is( $ps->get_root_domain('www.google.co.uk'), 'google.co.uk', 'www-to-root-co-uk
 is( $ps->tld(), 'uk',                                       , 'root-to-root-co-uk-tld' );
 is( $ps->suffix(), 'co.uk',                                 , 'root-to-root-co-uk-etld' );
 
+is( $ps->get_root_domain('www.0.com'), '0.com'              , '0.com' );
+is( $ps->tld(), 'com',                                      , '0.com-tld' );
+
 is( $ps->get_root_domain('not_valid_at_all'), undef         , 'invalid-domain' );
 is( $ps->error, 'Malformed domain',                         , 'domain-error' );
 

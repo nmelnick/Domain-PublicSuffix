@@ -1,5 +1,8 @@
 Revision history for Domain-PublicSuffix
 
+0.09    2013-03-18 03:35 GMT
+	- Include patch from Gavin Carr (GAVINC) to fix domains that evaluate to false
+
 0.08    2013-01-31 15:00 GMT
         - Update upstream PublicSuffix list
 

@@ -11,21 +11,11 @@ my %data = (
 	'openfusion.com.au'                 => 'openfusion.com.au',
 );
 
-my @bad = (
-	# .au only allows 3lds
-	'bogus.au',
-);
-
 ok($dps = Domain::PublicSuffix->new({ domain_allow_underscore => 1 }), 'constructor ok');
 
 foreach my $hostname ( sort keys %data ) {
 	my $root_domain = $dps->get_root_domain($hostname);
 	is( $root_domain, $data{$hostname}, "$hostname ok" );
-}
-
-foreach my $hostname (@bad) {
-	my $root_domain = $dps->get_root_domain($hostname);
-	is( $root_domain, undef, "$hostname correctly invalid: " . $dps->error );
 }
 
 done_testing();

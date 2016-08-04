@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use base 'Class::Accessor::Fast';
 
-use Data::Validate::Domain ();
 use Domain::PublicSuffix::Default ();
 use File::Spec ();
 
@@ -30,7 +29,7 @@ Domain::PublicSuffix - Parse a domain down to root
  });
  my $root = $suffix->get_root_domain('www.google.com');
  # $root now contains "google.com"
- 
+
  $root = $suffix->get_root_domain('www.google.co.uk');
  # $root now contains google.co.uk
 
@@ -107,7 +106,7 @@ A flag to indicate that underscores should be allowed in hostnames
 
 sub new {
 	my ( $class, @args ) = @_;
-	
+
 	my $self = $class->SUPER::new(@args);
 
 	# Compatibility fix
@@ -116,7 +115,7 @@ sub new {
 	}
 
 	$self->_parse_data_file();
-	
+
 	return $self;
 }
 
@@ -134,40 +133,40 @@ the error accessor with a human-readable error string.
 
 sub get_root_domain {
 	my ( $self, $domain ) = @_;
-	
+
 	# Clear meta properties
 	foreach ( qw/tld suffix root_domain error/ ) {
 		undef( $self->{$_} );
 	}
-	
+
 	# Check if domain is valid
 	unless ( $self->_validate_domain($domain) ) {
 		$self->error('Malformed domain');
 		return;
 	}
-	
+
 	my @domain_array = split(/\./, $domain);
 	my $tld = pop(@domain_array);
 	unless ( defined $self->tld_tree->{$tld} ) {
 		$self->error('Invalid TLD');
 		return;
 	}
-	
+
 	$self->tld($tld);
 	$self->suffix($tld) if ( scalar( keys %{$self->tld_tree->{$tld}} ) == 0 );
-	
+
 	# Reverse iterate through domain to find effective root
 	my $last = $self->tld_tree->{$tld};
 	my $effective_root = $tld;
-	
+
 	while ( !$self->suffix and scalar(@domain_array) > 0 ) {
 		my $sub = pop(@domain_array);
 		next if (! defined $sub);
-		
+
 		# check if $sub.$last is a root
 		if ( defined $last->{$sub} and scalar(keys %{$last->{$sub}}) == 0 ) {
 			$self->suffix( $sub . "." . $effective_root );
-			
+
 		} elsif ( defined $last->{'*'} ) {
 			# wildcard means everything is an root, but check for exceptions
 			my $exception_flag = 0;
@@ -186,52 +185,52 @@ sub get_root_domain {
 			} else {
 				$self->suffix(join(".", $sub, $effective_root));
 			}
-			
+
 		} elsif ( defined $last->{'RootEnable'} and !defined $last->{$sub} ) {
 			# we have nothing left in the domain string, check
 			# if the root we have is enough
 			push( @domain_array, $sub );
 			$self->suffix($effective_root);
 		}
-		
+
 		$effective_root = join( '.', $sub, $effective_root );
 		$last = $last->{$sub};
 	}
-	
+
 	# Leave if we still haven't found an effective root
 	if ( !$self->suffix ) {
 		$self->error('Domain not valid');
 		return;
 	}
-	
+
 	# Check if we're left with just an root
 	if ( $self->suffix eq $domain ) {
 		$self->error('Domain is already root');
 		return;
 	}
-	
+
 	# Set root domain to one step below effective root.
 	$self->{'root_domain'} = pop(@domain_array) . "." . $self->suffix;
-	
+
 	return $self->root_domain;
 }
 
 sub _parse_data_file {
 	my ( $self ) = @_;
-	
+
 	$self->{'tld_tree'} = {};
 	my $data_stream_ref;
-	
+
 	# Find an effective_tld_names.dat file
 	my @tld_lines;
 	my $dat;
-	if ( defined $self->data_file and -e $self->data_file ) {
+	if ( $self->data_file and -e $self->data_file ) {
 		open( $dat, '<', $self->data_file )
 			or die "Cannot open \'" . $self->data_file . "\': " . $!;
 		@tld_lines = <$dat>;
 		close($dat);
 		$data_stream_ref = \@tld_lines;
-		
+
 	} else {
 		my @paths = (
 			File::Spec->catdir(File::Spec->rootdir, qw/ usr share publicsuffix /),
@@ -257,32 +256,32 @@ sub _parse_data_file {
 	unless ( defined $data_stream_ref ) {
 		$data_stream_ref = Domain::PublicSuffix::Default::retrieve();
 	}
-	
+
 	foreach ( @{$data_stream_ref} ) {
 		chomp;
 		# Remove comments, skip if full line comment, remove if on-line comment
 		next if ( /^\// or /^[ \t]*?$/ );
 		s/\s.*//;
-		
+
 		# Break down by dots
 		my @domain_array = split( /\./, $_ );
 		warn scalar @domain_array if ($a);
 		my $last = $self->tld_tree;
-		
+
 		if (scalar(@domain_array) == 1) {
 			my $sub = pop(@domain_array);
 			next if (!$sub);
-			
+
 			$last->{$sub} = {} unless ( defined $last->{$sub} );
 			$last->{$sub}->{'RootEnable'} = 1;
 		}
-		
+
 		# Reverse iterate domain array to build hash tree of tlds
 		while (scalar(@domain_array) > 0) {
 			my $sub = pop(@domain_array);
 			$sub =~ s/\s.*//g;
 			next if (!$sub);
-			
+
 			$last->{$sub} = {} unless ( defined $last->{$sub} );
 			$last->{$sub}->{'RootEnable'} = 1 if ( scalar @domain_array == 0 );
 			$last = $last->{$sub};
@@ -292,46 +291,58 @@ sub _parse_data_file {
 
 sub _validate_domain {
 	my ($self, $domain) = @_;
-	
-	my $is_valid = Data::Validate::Domain::is_domain( 
-		$domain, 
-		{
-			'domain_allow_underscore'   => $self->domain_allow_underscore,
-			'domain_private_tld'        => qr/^[a-z0-9]+$/,
-		}
-	);
-	return $is_valid;
+
+	return ( _validate_length($domain) and _validate_multiple_segments($domain) );
 }
 
+# Domains must have more than one segment with length
+sub _validate_multiple_segments {
+	my ($domain) = @_;
+
+	my @segments = split( /\./, $domain );
+	return unless ( @segments > 1 );
+	foreach my $segment (@segments) {
+		return unless ( length($segment) > 0 );
+	}
+	return 1;
+}
+
+# Domains may not be more than 255 characters in length
+sub _validate_length {
+	my ($domain) = @_;
+
+	my $length = length($domain);
+	return ( $length > 1 and $length <= 255 );
+}
 
 ### Compatibility
 
 sub _parseDataFile {
 	my ($self) = @_;
-	
+
 	return $self->_parse_data_file();
 }
 sub getRootDomain {
 	my ( $self, $domain ) = @_;
-	
+
 	return $self->get_root_domain($domain);
 }
 
 sub _validateDomain {
 	my ($self, $domain) = @_;
-	
+
 	return $self->_validate_domain($domain);
 }
 
 sub dataFile {
 	my ( $self, $data_file ) = @_;
-	
+
 	return $self->data_file($data_file);
 }
 
 sub rootDomain {
 	my ( $self, $root_domain ) = @_;
-	
+
 	return $self->root_domain($root_domain);
 }
 
@@ -357,14 +368,12 @@ L<http://publicsuffix.org/>
 
 =back
 
-
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-domain-publicsuffix at rt.cpan.org>,
 or through the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Domain-PublicSuffix>.
 I will be notified, and then you'll automatically be notified of progress on
 your bug as I make changes.
-
 
 =head1 SUPPORT
 
@@ -394,7 +403,6 @@ L<http://search.cpan.org/dist/Domain-PublicSuffix>
 
 =back
 
-
 =head1 CONTRIBUTORS
 
 dkg: Daniel Kahn Gillmor
@@ -403,10 +411,9 @@ gavinc: Gavin Carr
 
 jwieland: Jason Wieland
 
-
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008-12 Nicholas Melnick, C<nick at abstractwankery.com>.
+Copyright 2008-16 Nicholas Melnick, C<nick at abstractwankery.com>.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

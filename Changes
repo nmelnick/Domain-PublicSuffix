@@ -1,5 +1,12 @@
 Revision history for Domain-PublicSuffix
 
+0.11    2016-08-04 17:10 GMT
+  - Remove Data::Validate::Domain dependency by simplifying the domain validity
+    check to very basic sanity checks, with the assumption that egregious errors
+    are either caught upstream, or result in a validity failure after checking
+    the PublicSuffix match.
+  - Update upstream PublicSuffix list
+
 0.10    2014-10-15 01:35 GMT
   - Update upstream PublicSuffix list
 

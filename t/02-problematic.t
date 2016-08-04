@@ -13,7 +13,8 @@ my %data = (
 	'openfusion.com.au'                 => 'openfusion.com.au',
 );
 
-ok($dps = Domain::PublicSuffix->new({ domain_allow_underscore => 1 }), 'constructor ok');
+my $dps;
+ok( $dps = Domain::PublicSuffix->new({ domain_allow_underscore => 1 }), 'constructor ok' );
 
 foreach my $hostname ( sort keys %data ) {
 	my $root_domain = $dps->get_root_domain($hostname);

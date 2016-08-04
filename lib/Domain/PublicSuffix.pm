@@ -1,10 +1,13 @@
 package Domain::PublicSuffix;
+
 use strict;
 use warnings;
 use base 'Class::Accessor::Fast';
 
 use Domain::PublicSuffix::Default ();
+use Encode ();
 use File::Spec ();
+use Net::IDN::Encode ();
 
 __PACKAGE__->mk_accessors(qw/
 	data_file
@@ -25,7 +28,7 @@ Domain::PublicSuffix - Parse a domain down to root
  use Domain::PublicSuffix;
 
  my $suffix = Domain::PublicSuffix->new({
-	 'data_file' => '/tmp/effective_tld_names.dat'
+   'data_file' => '/tmp/effective_tld_names.dat'
  });
  my $root = $suffix->get_root_domain('www.google.com');
  # $root now contains "google.com"
@@ -140,7 +143,7 @@ sub get_root_domain {
 	}
 
 	# Check if domain is valid
-	unless ( $self->_validate_domain($domain) ) {
+	unless ( _validate_domain($domain) ) {
 		$self->error('Malformed domain');
 		return;
 	}
@@ -225,7 +228,7 @@ sub _parse_data_file {
 	my @tld_lines;
 	my $dat;
 	if ( $self->data_file and -e $self->data_file ) {
-		open( $dat, '<', $self->data_file )
+		open( $dat, '<:encoding(UTF-8)', $self->data_file )
 			or die "Cannot open \'" . $self->data_file . "\': " . $!;
 		@tld_lines = <$dat>;
 		close($dat);
@@ -263,34 +266,40 @@ sub _parse_data_file {
 		next if ( /^\// or /^[ \t]*?$/ );
 		s/\s.*//;
 
-		# Break down by dots
-		my @domain_array = split( /\./, $_ );
-		warn scalar @domain_array if ($a);
-		my $last = $self->tld_tree;
+		# Parse both unicode and ASCII representations, if needed
+		my @tlds = ($_);
+		my $ascii = Net::IDN::Encode::domain_to_ascii($_);
+		push( @tlds, $ascii ) if ( $_ ne $ascii );
 
-		if (scalar(@domain_array) == 1) {
-			my $sub = pop(@domain_array);
-			next if (!$sub);
+		foreach (@tlds) {
+			# Break down by dots
+			my @domain_array = split( /\./, $_ );
+			my $last = $self->tld_tree;
 
-			$last->{$sub} = {} unless ( defined $last->{$sub} );
-			$last->{$sub}->{'RootEnable'} = 1;
-		}
+			if (scalar(@domain_array) == 1) {
+				my $sub = pop(@domain_array);
+				next if (!$sub);
 
-		# Reverse iterate domain array to build hash tree of tlds
-		while (scalar(@domain_array) > 0) {
-			my $sub = pop(@domain_array);
-			$sub =~ s/\s.*//g;
-			next if (!$sub);
+				$last->{$sub} = {} unless ( defined $last->{$sub} );
+				$last->{$sub}->{'RootEnable'} = 1;
+			}
 
-			$last->{$sub} = {} unless ( defined $last->{$sub} );
-			$last->{$sub}->{'RootEnable'} = 1 if ( scalar @domain_array == 0 );
-			$last = $last->{$sub};
+			# Reverse iterate domain array to build hash tree of tlds
+			while (scalar(@domain_array) > 0) {
+				my $sub = pop(@domain_array);
+				$sub =~ s/\s.*//g;
+				next if (!$sub);
+
+				$last->{$sub} = {} unless ( defined $last->{$sub} );
+				$last->{$sub}->{'RootEnable'} = 1 if ( scalar @domain_array == 0 );
+				$last = $last->{$sub};
+			}
 		}
 	}
 }
 
 sub _validate_domain {
-	my ($self, $domain) = @_;
+	my ($domain) = @_;
 
 	return ( _validate_length($domain) and _validate_multiple_segments($domain) );
 }
@@ -379,7 +388,7 @@ your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-	perldoc Domain::PublicSuffix
+  perldoc Domain::PublicSuffix
 
 You can also look for information at:
 

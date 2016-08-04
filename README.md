@@ -5,6 +5,7 @@ A perl module to parse a domain down to the root TLD utilizing the Mozilla
 PublicSuffix file.
 
 INSTALLATION
+------------
 
 To install this module from Git, you will need Dist::Zilla. Once installed, run:
    dzil authordeps | cpanm
@@ -22,6 +23,7 @@ To install this module from an archive, type the following:
    cpanm .
 
 DEPENDENCIES
+------------
 
 This module requires these other modules and libraries:
 
@@ -31,6 +33,7 @@ This module requires these other modules and libraries:
   Test::More
 
 COPYRIGHT AND LICENSE
+---------------------
 
 Copyright (C) 2008-16 by Nicholas Melnick
 

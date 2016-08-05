@@ -264,7 +264,7 @@ sub _parse_data_file {
 		chomp;
 		# Remove comments, skip if full line comment, remove if on-line comment
 		next if ( /^\// or /^[ \t]*?$/ );
-		s/\s.*//;
+		s/[\s\x{0085}\x{000A}\x{000C}\x{000D}\x{0020}].*//;
 
 		# Parse both unicode and ASCII representations, if needed
 		my @tlds = ($_);

@@ -1,5 +1,8 @@
 Revision history for Domain-PublicSuffix
 
+0.12    2016-08-05 16:02 GMT
+  - Fix unicode parsing bug
+
 0.11    2016-08-04 17:10 GMT
   - Remove Data::Validate::Domain dependency by simplifying the domain validity
     check to very basic sanity checks, with the assumption that egregious errors

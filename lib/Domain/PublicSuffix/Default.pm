@@ -1,8 +1,9 @@
+use utf8;
+
 package Domain::PublicSuffix::Default;
 
 use strict;
 use warnings;
-use utf8;
 
 =head1 NAME
 

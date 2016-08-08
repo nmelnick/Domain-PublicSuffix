@@ -5,11 +5,11 @@ use warnings;
 use base 'Class::Accessor::Fast';
 
 use Domain::PublicSuffix::Default ();
-use Encode ();
 use File::Spec ();
 use Net::IDN::Encode ();
 
 __PACKAGE__->mk_accessors(qw/
+	use_default
 	data_file
 	domain_allow_underscore
 	tld_tree
@@ -95,6 +95,10 @@ Can take a hashref of arguments:
 =item data_file 
 
 A fully qualified path, to override the effective_tld_names.dat file.
+
+=item use_default 
+
+Use the provided publicsuffix file, do not search for any other files.
 
 =item domain_allow_underscore
 
@@ -227,7 +231,9 @@ sub _parse_data_file {
 	# Find an effective_tld_names.dat file
 	my @tld_lines;
 	my $dat;
-	if ( $self->data_file and -e $self->data_file ) {
+	if ( $self->use_default ) {
+		$data_stream_ref = Domain::PublicSuffix::Default::retrieve();
+	} elsif ( $self->data_file and -e $self->data_file ) {
 		open( $dat, '<:encoding(UTF-8)', $self->data_file )
 			or die "Cannot open \'" . $self->data_file . "\': " . $!;
 		@tld_lines = <$dat>;

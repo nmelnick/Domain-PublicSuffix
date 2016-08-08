@@ -7,8 +7,8 @@ use Domain::PublicSuffix;
 my $ps = Domain::PublicSuffix->new({
     'dataFile' => 'effective_tld_names.dat'
 });
-is( $ps->getRootDomain('google.com'), 'google.com'          , 'compatibility' );
-is( $ps->tld(), 'com',                                      , 'compatibility-tld' );
+is( $ps->getRootDomain('google.com'), 'google.com', 'compatibility' );
+is( $ps->tld(), 'com',                            , 'compatibility-tld' );
 
 done_testing();
 

@@ -23,6 +23,12 @@ is( $ps->tld(), 'com',                                      , '0.com-tld' );
 is( $ps->get_root_domain('not_valid_at_all'), undef         , 'invalid-domain' );
 is( $ps->error, 'Malformed domain',                         , 'domain-error' );
 
+$ps = Domain::PublicSuffix->new({ 'use_default' => 1 });
+
+is( ref($ps), 'Domain::PublicSuffix',                       , 'create-object' );
+is( $ps->get_root_domain('google.com'), 'google.com'        , 'root-to-root-com' );
+is( $ps->tld(), 'com',                                      , 'domain-error' );
+
 $ps = Domain::PublicSuffix->new({ 
     'data_file' => 'effective_tld_names.dat'
 });
@@ -30,12 +36,6 @@ $ps = Domain::PublicSuffix->new({
 is( ref($ps), 'Domain::PublicSuffix',                       , 'create-external-object' );
 is( $ps->get_root_domain('www.domain.me'), 'domain.me'      , 'external-me' );
 is( $ps->tld(), 'me',                                       , 'external-me-tld' );
-
-$ps = Domain::PublicSuffix->new({
-    'dataFile' => 'effective_tld_names.dat'
-});
-is( $ps->getRootDomain('google.com'), 'google.com'          , 'compatibility' );
-is( $ps->tld(), 'com',                                      , 'compatibility-tld' );
 
 done_testing();
 

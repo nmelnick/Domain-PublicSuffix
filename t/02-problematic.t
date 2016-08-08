@@ -14,7 +14,10 @@ my %data = (
 );
 
 my $dps;
-ok( $dps = Domain::PublicSuffix->new({ domain_allow_underscore => 1 }), 'constructor ok' );
+ok( $dps = Domain::PublicSuffix->new({
+	'use_default'             => 1,
+	'domain_allow_underscore' => 1,
+}), 'constructor ok' );
 
 foreach my $hostname ( sort keys %data ) {
 	my $root_domain = $dps->get_root_domain($hostname);

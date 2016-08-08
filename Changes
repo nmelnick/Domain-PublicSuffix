@@ -1,5 +1,8 @@
 Revision history for Domain-PublicSuffix
 
+0.13    2016-08-07 16:02 GMT
+  - Test fixes
+
 0.12    2016-08-05 16:02 GMT
   - Fix unicode parsing bug
 

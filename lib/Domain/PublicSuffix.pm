@@ -251,7 +251,7 @@ sub _parse_data_file {
 		foreach my $path (@paths) {
 			$path = File::Spec->catfile( $path, "effective_tld_names.dat" );
 			if ( -e $path ) {
-				open( $dat, '<', $path )
+				open( $dat, '<:encoding(UTF-8)', $path )
 					or die "Cannot open \'" . $path . "\': " . $!;
 				@tld_lines = <$dat>;
 				close($dat);

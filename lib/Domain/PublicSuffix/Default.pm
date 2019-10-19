@@ -18,7 +18,7 @@ Domain::PublicSuffix::Default - Default PublicSuffix data file
 =head1 DESCRIPTION
 
 This module provides a default public suffix list, as distributed by Mozilla
-at time of module release. This was last updated 2013-03-18.
+at time of module release. This was last updated on 2019-10-18.
 
 =head1 PUBLIC ACCESSORS
 

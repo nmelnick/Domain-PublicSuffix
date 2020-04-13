@@ -4,6 +4,12 @@ Domain-PublicSuffix
 A perl module to parse a domain down to the root TLD utilizing the Mozilla
 PublicSuffix file.
 
+This module utilizes the "effective_tld_names.dat" provided by Mozilla as a way
+to effectively reduce a fully qualified domain name down to the absolute root.
+The Mozilla PublicSuffix file is an open source, fully documented format that
+shows absolute root TLDs, primarily for Mozilla's browser products to be able
+to determine how far a cookie's security boundaries go.
+
 INSTALLATION
 ------------
 
@@ -30,10 +36,10 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-  Class::Accessor::Fast
-  File::Spec
-  Net::IDN::Encode
-  Test::More
+* Class::Accessor::Fast
+* File::Spec
+* Net::IDN::Encode
+* Test::More
 
 COPYRIGHT AND LICENSE
 ---------------------

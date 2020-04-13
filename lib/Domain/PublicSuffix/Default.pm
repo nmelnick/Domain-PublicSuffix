@@ -18,7 +18,9 @@ Domain::PublicSuffix::Default - Default PublicSuffix data file
 =head1 DESCRIPTION
 
 This module provides a default public suffix list, as distributed by Mozilla
-at time of module release. This was last updated on 2019-10-18.
+at time of module release.
+
+This was last updated on 2020-04-13.
 
 =head1 PUBLIC ACCESSORS
 
@@ -33,7 +35,8 @@ Returns current list as an array reference.
 =cut
 
 sub retrieve {
-    my @lines = split(/\n/, q{// This Source Code Form is subject to the terms of the Mozilla Public
+    my @lines = split(/\n/, q{
+// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 

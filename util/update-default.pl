@@ -72,7 +72,7 @@ sub retrieve_suffix {
     my $ua = LWP::UserAgent->new(timeout => 10);
     my $response = $ua->get('https://publicsuffix.org/list/public_suffix_list.dat');
     if ($response->is_success()) {
-        return $response->decoded_content();
+        return $response->decoded_content((charset => 'UTF-8'));
     } else {
         die 'Unable to retrieve suffix: ' . $response->status_line;
     }

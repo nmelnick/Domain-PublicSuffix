@@ -1,5 +1,4 @@
 # Domain-PublicSuffix
-===================
 
 A perl module to parse a domain down to the root TLD utilizing the Mozilla
 PublicSuffix file.

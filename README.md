@@ -1,4 +1,4 @@
-Domain-PublicSuffix
+# Domain-PublicSuffix
 ===================
 
 A perl module to parse a domain down to the root TLD utilizing the Mozilla
@@ -10,8 +10,7 @@ The Mozilla PublicSuffix file is an open source, fully documented format that
 shows absolute root TLDs, primarily for Mozilla's browser products to be able
 to determine how far a cookie's security boundaries go.
 
-INSTALLATION
-------------
+## INSTALLATION
 
 To install this module from Git, you will need Dist::Zilla. Once installed, run:
 ```
@@ -31,8 +30,7 @@ To install this module from an archive, type the following:
    cpanm .
 ```
 
-DEPENDENCIES
-------------
+## DEPENDENCIES
 
 This module requires these other modules and libraries:
 
@@ -41,11 +39,9 @@ This module requires these other modules and libraries:
 * Net::IDN::Encode
 * Test::More
 
-COPYRIGHT AND LICENSE
----------------------
+## COPYRIGHT AND LICENSE
 
-Copyright (C) 2008-2020 by Nicholas Melnick
+Copyright (C) 2008-2021 by Nick Melnick
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.8.8 or,
-at your option, any later version of Perl 5 you may have available.
+it under the same terms as Perl 5 itself.

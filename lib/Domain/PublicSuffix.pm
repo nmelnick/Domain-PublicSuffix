@@ -215,7 +215,7 @@ sub get_root_domain {
 		$self->root_domain($suffix);
 	} else {
 		my $root_domain = $domain;
-		$root_domain =~ s/^.*\.(.*?\.$suffix)$/$1/;
+		$root_domain =~ s/^.*\.(.*?\.$suffix)\.?$/$1/;
 		$self->root_domain($root_domain);
 	}
 

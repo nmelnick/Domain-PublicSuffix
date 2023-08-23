@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         perl-version:
-        - '5.22'
+        - '5.20'
         - 'latest'
     container:
       image: perldocker/perl-tester:${{ matrix.perl-version }}

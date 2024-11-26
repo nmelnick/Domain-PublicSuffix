@@ -452,7 +452,7 @@ jwieland: Jason Wieland
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008-2020 Nicholas Melnick, C<nick at abstractwankery.com>.
+Copyright 2008-2024 Nicholas Melnick, C<cpan at nmelnick.fastmail.com>.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
